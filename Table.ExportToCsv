@@ -1,0 +1,8 @@
+// Exports the current table to csv. Pass full PathFile specification as parameter
+(path) =>
+let
+    ConvertedPath = Text.Replace(path, "\", "/"),
+    RScript = R.Execute("write.csv(dataset,""&ConvertedPath&"") #(lf) output <- dataset",[dataset=Actuals]),
+    output = RScript{[Name="output"]}[Value]
+in
+    output
