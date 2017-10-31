@@ -1,4 +1,4 @@
-  <div class="topic">
+<div class="topic">
     <h1 class="title">Number.Mod</h1>
     <div id="mainSection">
       <div id="mainBody"> <p>This topic applies to the Power Query Formula Language which can be used with <a href="https://support.office.com/article/Introduction-to-Microsoft-Power-Query-for-Excel-6E92E2F4-2079-4E1F-BAD5-89F6269CD605">Power Query</a> and <a href="http://go.microsoft.com/fwlink/p/?LinkId=618607">Power BI Desktop</a> to build queries that mashup data. See the list of <a href="https://msdn.microsoft.com/en-us/library/mt211003.aspx">function categories</a>.</p><div><h2 class="LW_CollapsibleArea_TitleDiv"><div><a class="LW_CollapsibleArea_TitleAhref" title="Collapse" role="heading"><span class="cl_CollapsibleArea_expanding LW_CollapsibleArea_Img"></span><span class="LW_CollapsibleArea_Title">About</span></a><div id="Anchor_0" class="LW_CollapsibleArea_Anchor_Div"><a href="/en-us/library/mt253344.aspx#Anchor_0" class="LW_CollapsibleArea_Anchor_Img" title="Right-click to copy and share the link for this section"></a></div><div class="LW_CollapsibleArea_HrDiv"><hr class="LW_CollapsibleArea_Hr" /></div></div></h2><div class="sectionblock"><a id="About"></a></div></div><p>Divides two numbers and returns the remainder of the resulting number.</p>
@@ -10,6 +10,7 @@
 
 
 ```Number.Mod(83, 9)  ```   equals 2 
+
 
 
 ## Caveats
