@@ -13,6 +13,7 @@
 
 
 
+
 ## Caveats
 - Diverging signs at numerator and divisor will lead to different results compared to Excel and DAX (http://www.thebiccountant.com/2017/09/13/number-mod-rescue-pack-power-bi-power-query/) 
 
