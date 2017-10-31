@@ -1,3 +1,7 @@
+{% gist 5555251 %}  
+
+
+
 # M
 Collection of M functions for Power Query and Power BI
 
