@@ -17,4 +17,4 @@
 
 
 ## Alternatives
-- [Link](../Number.ModX.pq) : Returns the same results than the modulo-function in Excel and DAX 
+- [Number.ModX](../Number.ModX.pq) : Returns the same results than the modulo-function in Excel and DAX 
