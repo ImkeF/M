@@ -1,23 +1,25 @@
 let func = 
 (MasterPath as text, BlobPath as text) =>
 let
-/* debug parameters
-    MasterPath = "https://github.com/ImkeF/RM/tree/master",
-    BlobPath = "https://github.com/ImkeF/RM/blob/master",
-*/
+// debug parameters
+//    MasterPath = "https://github.com/ImkeF/M/tree/master/Library",
+//    BlobPath = "https://github.com/ImkeF/M/blob/master/Library",
 
-    FileEndings = {".rm", ".m"},
+
+    FileEndings = {".pq", ".m"},
     Source = Web.Page(Web.Contents(MasterPath)),
     Data0 = Source{0}[Data],
-    #"Filtered Rows" = Table.SelectRows(Data0, each List.AnyTrue(List.Transform(FileEndings, (list)=> Text.EndsWith([#"Failed to load latest commit information."], list)))),
-    CreateURL = Table.AddColumn(#"Filtered Rows", "URLFunctionCode", each BlobPath&"/"&[#"Failed to load latest commit information."]),
+    ColumnFunctionNames = Table.ColumnNames(Data0){1},
+    #"Filtered Rows" = Table.SelectRows(Data0, each List.AnyTrue(List.Transform(FileEndings, (list)=> Text.EndsWith(Record.Field(_,ColumnFunctionNames), list)))),
+    CreateURL = Table.AddColumn(#"Filtered Rows", "URLFunctionCode", each BlobPath&"/"&Record.Field(_, ColumnFunctionNames)),
     GetCode = Table.AddColumn(CreateURL, "GetCode", each Text.Combine(Web.Page(Web.Contents([URLFunctionCode]))[Data]{0}[Column2], "#(lf)")),
-    #"Removed Other Columns" = Table.SelectColumns(GetCode,{"GetCode", "Failed to load latest commit information."}),
-    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"Failed to load latest commit information.", "Name"}}),
-    CleanFunctionName = Table.TransformColumns(#"Renamed Columns", {{"Name", each Text.BeforeDelimiter(_, ".", {0, RelativePosition.FromEnd}), type text}})
+    #"Removed Other Columns" = Table.SelectColumns(GetCode,{"GetCode", ColumnFunctionNames}),
+    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{ColumnFunctionNames, "Name"}}),
+ //   CleanFunctionName = Table.TransformColumns(#"Renamed Columns", {{"Name", each Text.BeforeDelimiter(_, ".", {0, RelativePosition.FromEnd}), type text}}),
+    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "TestCode", each Expression.Evaluate([GetCode],#shared))
 in
-    CleanFunctionName
-
+    #"Added Custom"
+/*
 , documentation = [
 Documentation.Name =  " fnGetCodeFromGithub
 ", Documentation.Description = " Fetches function code from GitHub
@@ -29,3 +31,4 @@ Documentation.Name =  " fnGetCodeFromGithub
 "]}] 
  in 
   Value.ReplaceType(func, Value.ReplaceMetadata(Value.Type(func), documentation))
+*/
