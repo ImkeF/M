@@ -27,7 +27,7 @@ Documentation.Name =  " fnGetCodeFromGithub
 ", Documentation.Category = " Accessing data
 ", Documentation.Author = " Imke Feldmann: www.TheBIccountant.com
 ", Documentation.Examples = {[Description =  " 1) Path to repo main page 2) Path to the single files
-" , Code = " Check this blogpost explaining how it works: http://wp.me/p6lgsG-Gx
+" , Code = " Check this blogpost: http://wp.me/p6lgsG-Gx explaining how it works
  ", Result = " 
 "]}] 
  in 
