@@ -1,9 +1,10 @@
 let func = 
 (MasterPath as text, BlobPath as text) =>
 let
-// debug parameters
-//    MasterPath = "https://github.com/ImkeF/M/tree/master/Library",
-//    BlobPath = "https://github.com/ImkeF/M/blob/master/Library",
+/* debug parameters
+    MasterPath = "https://github.com/ImkeF/RM/tree/master",
+    BlobPath = "https://github.com/ImkeF/RM/blob/master",
+*/
 
 
     FileEndings = {".pq", ".m"},
@@ -15,11 +16,11 @@ let
     GetCode = Table.AddColumn(CreateURL, "GetCode", each Text.Combine(Web.Page(Web.Contents([URLFunctionCode]))[Data]{0}[Column2], "#(lf)")),
     #"Removed Other Columns" = Table.SelectColumns(GetCode,{"GetCode", ColumnFunctionNames}),
     #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{ColumnFunctionNames, "Name"}}),
- //   CleanFunctionName = Table.TransformColumns(#"Renamed Columns", {{"Name", each Text.BeforeDelimiter(_, ".", {0, RelativePosition.FromEnd}), type text}}),
-    #"Added Custom" = Table.AddColumn(#"Renamed Columns", "TestCode", each Expression.Evaluate([GetCode],#shared))
+    CleanFunctionName = Table.TransformColumns(#"Renamed Columns", {{"Name", each Text.BeforeDelimiter(_, ".", {0, RelativePosition.FromEnd}), type text}}),
+    Evaluate = Table.AddColumn(CleanFunctionName , "TestCode", each Expression.Evaluate([GetCode],#shared))
 in
-    #"Added Custom"
-/*
+    Evaluate 
+
 , documentation = [
 Documentation.Name =  " fnGetCodeFromGithub
 ", Documentation.Description = " Fetches function code from GitHub
@@ -31,4 +32,3 @@ Documentation.Name =  " fnGetCodeFromGithub
 "]}] 
  in 
   Value.ReplaceType(func, Value.ReplaceMetadata(Value.Type(func), documentation))
-*/
