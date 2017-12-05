@@ -1,4 +1,5 @@
-/*
+let func =  
+ /*
 (ParChTable as table,
 ChildKey as text,
 ParentKey as text,
@@ -54,3 +55,17 @@ LevelColumnName = "Name",
     #"Expanded Split Column by Delimiter" = Table.ExpandTableColumn(#"Merged Queries", "Split Column by Delimiter", List.Difference(Table.ColumnNames(ParChTable), Table.ColumnNames(#"Replaced Value1")))
 in
     #"Expanded Split Column by Delimiter"
+, documentation = [
+Documentation.Name =  " Table.SolveParentChild
+", Documentation.Description = " Creates columns for all parents, multiple parents are supported
+" , Documentation.LongDescription = " Creates columns for all parents, multiple parents are supported
+", Documentation.Category = " Table
+", Documentation.Source = " See: http://wp.me/p6lgsG-sl for more details
+", Documentation.Author = " Chris Webb
+", Documentation.Examples = {[Description =  " 
+" , Code = " 
+ ", Result = " 
+"]}] 
+ in 
+  Value.ReplaceType(func, Value.ReplaceMetadata(Value.Type(func), documentation)) 
+
