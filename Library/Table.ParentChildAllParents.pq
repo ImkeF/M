@@ -1,27 +1,23 @@
-let func =  
- //*
+/*
 (ParChTable as table,
 ChildKey as text,
 ParentKey as text,
 LevelColumnName as text) =>
-//*/
-
-let
-/*
-//Debug Parameters
-ParChTable = Nodes1,
-ChildKey = "NodeKey1",
-ParentKey = "ParentKey1",
-LevelColumnName = "Name1",
 */
 
-
-    SelectRelevantColumns = Table.SelectColumns(ParChTable, {ChildKey, ParentKey, LevelColumnName}),
-    #"Changed Type" = Table.TransformColumnTypes(SelectRelevantColumns ,{{ChildKey, type text}, {ParentKey, type text}}),
+let
+//*
+//Debug Parameters
+ParChTable = BomNew,
+ChildKey = "ComponentID",
+ParentKey = "ProductAssemblyID",
+LevelColumnName = "Name",
+#"Changed Type" = Table.TransformColumnTypes(ParChTable,{{ChildKey, type text}, {ParentKey, type text}}),
     ReplaceNulls = Table.ReplaceValue(#"Changed Type",null,"",Replacer.ReplaceValue,{ParentKey}),
-    //    CleanParChTable = Table.Distinct(ReplaceNulls , {ChildKey, ParentKey}),
-    MissingParents = List.Buffer(List.Select(List.Difference(List.Distinct(Table.Column(ReplaceNulls , ParentKey)), List.Distinct(Table.Column(ReplaceNulls , ChildKey))), each _ <> "")),
-    CleanTable = Table.Buffer(Table.Combine({ReplaceNulls , #table({ChildKey, LevelColumnName, ParentKey}, List.Transform(MissingParents, each {_, "Unknown TopLevel"& Text.From(List.PositionOf(MissingParents, _)), ""}))})),
+    // */
+    SelectRelevantColumns = Table.SelectColumns(ReplaceNulls, {ChildKey, ParentKey, LevelColumnName}),
+    MissingParents = List.Buffer(List.Select(List.Difference(List.Distinct(Table.Column(SelectRelevantColumns , ParentKey)), List.Distinct(Table.Column(SelectRelevantColumns , ChildKey))), each _ <> "")),
+    CleanTable = Table.Buffer(Table.Combine({SelectRelevantColumns , #table({ChildKey, LevelColumnName, ParentKey}, List.Transform(MissingParents, each {_, "Unknown TopLevel"& Text.From(List.PositionOf(MissingParents, _)), ""}))})),
     #"Merged Queries0" = Table.NestedJoin(CleanTable,{ChildKey},CleanTable,{ParentKey},"SelectRelevantColumns",JoinKind.LeftOuter),
     CheckIfIsLeaf = Table.AddColumn(#"Merged Queries0", "IsLeaf", each if Table.IsEmpty([SelectRelevantColumns]) then "yes" else "no"),
     #"Replaced Value1" = Table.ReplaceValue(CheckIfIsLeaf,null,"",Replacer.ReplaceValue,{ParentKey, LevelColumnName}),
@@ -34,7 +30,7 @@ LevelColumnName = "Name1",
     [Result= Feed, Level=1],
     each Table.RowCount([Result]) > 0,
     each [ Result= let
-            #"Merged Queries" = Table.NestedJoin([Result],{ParentKey},CleanTable,{ChildKey},"Added Custom",JoinKind.Inner),
+    #"Merged Queries" = Table.NestedJoin([Result],{ParentKey},CleanTable,{ChildKey},"Added Custom",JoinKind.Inner),
             #"Removed Columns1" = Table.RemoveColumns(#"Merged Queries",{ParentKey}),
             #"Expanded Added Custom" = Table.ExpandTableColumn(#"Removed Columns1", "Added Custom", {ParentKey, LevelColumnName}, {"ParentKey.1", "Name.1"}),
             #"Duplicated Column" = Table.DuplicateColumn(#"Expanded Added Custom", "ParentKey.1", ParentKey),
@@ -53,21 +49,8 @@ LevelColumnName = "Name1",
     ReverseOrderName = Table.TransformColumns(#"Trimmed Text",{{"Name", each Text.Combine(List.Reverse(Text.Split(_, "|")), "|")}}),
     ReverseOrderPath = Table.TransformColumns(ReverseOrderName,{{"Path", each Text.Combine(List.Reverse(Text.Split(_, "|")), "|")}}),
     #"Reordered Columns" = Table.ReorderColumns(ReverseOrderPath,{"NodeKey", "FirstParentKey", "Path", "FirstName", "Level", "Name"}),
-    #"Split Column by Delimiter" = Table.SplitColumn(#"Reordered Columns", "Name", Splitter.SplitTextByDelimiter("|", QuoteStyle.Csv), List.Transform({1..Table.RowCount(ConvertToTable)}, each "Level "&Text.From(_))),
-    #"Merged Queries" = Table.NestedJoin(#"Split Column by Delimiter",{"NodeKey", "FirstParentKey"},ParChTable ,{ChildKey, ParentKey},"Split Column by Delimiter",JoinKind.LeftOuter),
+    SplitColumn = Table.SplitColumn(#"Reordered Columns", "Name", Splitter.SplitTextByDelimiter("|", QuoteStyle.Csv), List.Transform({1..Table.RowCount(ConvertToTable)}, each "Level "&Text.From(_))),
+    #"Merged Queries" = Table.NestedJoin(SplitColumn,{"NodeKey", "FirstParentKey"},ReplaceNulls,{ChildKey, ParentKey},"Split Column by Delimiter",JoinKind.LeftOuter),
     #"Expanded Split Column by Delimiter" = Table.ExpandTableColumn(#"Merged Queries", "Split Column by Delimiter", List.Difference(Table.ColumnNames(ParChTable), Table.ColumnNames(#"Replaced Value1")))
 in
     #"Expanded Split Column by Delimiter"
-, documentation = [
-Documentation.Name =  " Table.SolveParentChild
-", Documentation.Description = " Creates columns for all parents, multiple parents are supported
-" , Documentation.LongDescription = " Creates columns for all parents, multiple parents are supported
-", Documentation.Category = " Table
-", Documentation.Source = " local
-", Documentation.Author = " Imke Feldmann: www.TheBIccountant.com
-", Documentation.Examples = {[Description =  " See: http://wp.me/p6lgsG-sl for more details
-" , Code = " 
- ", Result = " 
-"]}] 
- in 
-  Value.ReplaceType(func, Value.ReplaceMetadata(Value.Type(func), documentation)) 
