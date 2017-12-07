@@ -60,7 +60,7 @@ Documentation.Name =  " Dates.ListDateIntervals
 " , Documentation.LongDescription = " Creates a list of dates according to the chosen interval between Start and End. The dates created will always be at the end of the interval, so could be in the future if today is chosen.
 ", Documentation.Category = " Table
 ", Documentation.Source = " local 
-", Documentation.Author = " www.TheBIccountant.com . 
+", Documentation.Author = " Imke Feldmann: www.TheBIccountant.com . 
 ", Documentation.Examples = {[Description =  " 
 " , Code = " 
  ", Result = " 
