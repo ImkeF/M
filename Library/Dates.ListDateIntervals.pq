@@ -59,8 +59,8 @@ Documentation.Name =  " Dates.ListDateIntervals
 ", Documentation.Description = " Creates a list of dates according to the chosen interval between Start and End
 " , Documentation.LongDescription = " Creates a list of dates according to the chosen interval between Start and End. The dates created will always be at the end of the interval, so could be in the future if today is chosen.
 ", Documentation.Category = " Table
-", Documentation.Source = " . https://blog.crossjoin.co.uk/2017/12/03/making-sure-all-columns-appear-when-you-combine-data-from-multiple-files-in-power-bi-power-query-m/#comment-42090   . 
-", Documentation.Author = " Chris Webb
+", Documentation.Source = " local 
+", Documentation.Author = " www.TheBIccountant.com . 
 ", Documentation.Examples = {[Description =  " 
 " , Code = " 
  ", Result = " 
