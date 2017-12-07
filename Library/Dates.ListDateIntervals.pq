@@ -1,5 +1,5 @@
 let func =  
- let
+let
 ListDateImpl = 
 (From as date, To as date, Selection as text) =>
 let
@@ -56,7 +56,7 @@ in
 ListDatesIntervalls
 , documentation = [
 Documentation.Name =  " Dates.ListDateIntervals
-", Documentation.Description = " Creates a list of dates according to the chosen interval between Start and End. Allowed values for 3rd parameter: "Year", "Quarter", "Month", "Week" or "Day".
+", Documentation.Description = " Creates a list of dates according to the chosen interval between Start and End. Allowed values for 3rd parameter: ""Year"", ""Quarter"", ""Month"", ""Week"" or ""Day"".
 " , Documentation.LongDescription = " Creates a list of dates according to the chosen interval between Start and End. The dates created will always be at the end of the interval, so could be in the future if today is chosen.
 ", Documentation.Category = " Table
 ", Documentation.Source = " local 
