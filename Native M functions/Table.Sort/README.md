@@ -1,11 +1,16 @@
-##Table.Sort
+`Table.Sort
  
-#About
+This topic applies to the Power Query Formula Language which can be used with Power Query and Power BI Desktop to build queries that mashup data. See the list of function categories.
+About
+
+
 Sorts the rows in a table using a comparisonCriteria or a default ordering if one is not specified.
 
-Table.Sort(table as table, optional comparisonCriteria as any) as table  
 
-#Arguments
+```Table.Sort(table as table, optional comparisonCriteria as any) as table ```
+
+Arguments
+
 
 Argument
 Description
@@ -17,9 +22,15 @@ Remarks
 
 
 Table.Sort is similar to List.Sort but requires a table as input.
-#Examples
+Examples
+
+
+
+
 Table.Sort(  
+  
     Table.FromRecords(  
+  
 {  
   
       [OrderID = 1, CustomerID = 1, Item = "Fishing rod", Price = 100.0],  
