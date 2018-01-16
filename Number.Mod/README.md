@@ -29,3 +29,6 @@ Divides two numbers and returns the remainder of the resulting number.
 
 
 ## Performance
+
+## Link to official documentation
+https://msdn.microsoft.com/en-us/library/mt253344.aspx
