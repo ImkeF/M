@@ -2,13 +2,13 @@ let
 // ----------------------- Documentation ----------------------- 
 
 documentation_ = [
-Documentation.Name =  " Dates.ListDateIntervals
+Documentation.Name =  " Dates.DatesBetween
 ", Documentation.Description = " Creates a list of dates according to the chosen interval between Start and End. Allowed values for 3rd parameter: ""Year"", ""Quarter"", ""Month"", ""Week"" or ""Day"".
 " , Documentation.LongDescription = " Creates a list of dates according to the chosen interval between Start and End. The dates created will always be at the end of the interval, so could be in the future if today is chosen.
 ", Documentation.Category = " Table
-", Documentation.Source = " local 
+", Documentation.Source = " http://www.thebiccountant.com/2017/12/11/date-datesbetween-retrieve-dates-between-2-dates-power-bi-power-query/ . 
 ", Documentation.Author = " Imke Feldmann: www.TheBIccountant.com . 
-", Documentation.Examples = {[Description =  " 
+", Documentation.Examples = {[Description =  " Check this blogpost: http://www.thebiccountant.com/2017/12/11/date-datesbetween-retrieve-dates-between-2-dates-power-bi-power-query/ .
 " , Code = " 
  ", Result = " 
 "]}],
