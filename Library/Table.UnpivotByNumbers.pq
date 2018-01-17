@@ -33,7 +33,7 @@ Documentation.Name =  " fnTable.UnpivotByNumbers
 ", Documentation.Description = " Unpivots a table according to the number of columns and header rows passed on in the parameters
 " , Documentation.LongDescription = " Unpivots a table according to the number of columns and header rows passed on in the parameters
 ", Documentation.Category = " Table functions
-", Documentation.Source = " local
+", Documentation.Source = " Check this blogpost explaining how it works: http://wp.me/p6lgsG-zW .
 ", Documentation.Author = " Imke Feldmann: www.TheBIccountant.com
 ", Documentation.Examples = {[Description =  " 
 " , Code = " Check this blogpost explaining how it works: http://wp.me/p6lgsG-zW
