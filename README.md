@@ -33,7 +33,7 @@ There are currently 2 libraries:
 "Function | Description
 -------- | -----------
 [Table.ColumnRunningTotal.pq](https://github.com/ImkeF/M/blob/master/Library/Table.ColumnRunningTotal.pq) | Fast way to add running total to a table
-[Table.ExportToCsvR.pq](https://github.com/ImkeF/M/blob/master/Library/Table.ExportToCsvR.pq) | Exports a table to a csv-file using R in Power BI.
+[Table.ExportToCsvR.pq](https://github.com/ImkeF/M/blob/master/LibraryR/Table.ExportToCsv.pq) | Exports a table to a csv-file using R in Power BI.
 [Table.ParentChildAllParents.pq](https://github.com/ImkeF/M/blob/master/Library/Table.ParentChildAllParents.pq) | Solves Parent-Child-Hierarchy and shows all parents.
 [Table.ToMarkdown.pq](https://github.com/ImkeF/M/blob/master/Library/Table.ToMarkdown.pq) | Transforms a table to a text string in GitHubs markup language, so that it can easily be copied.
 [Table.UnpivotByNumbers.pq](https://github.com/ImkeF/M/blob/master/Library/Table.UnpivotByNumbers.pq) | Unpivots a table according to the number of columns and header rows passed on in the parameters"
