@@ -1,16 +1,21 @@
+
 # M
-This repo contains custom functions in the language M, which can be used in Power BI, Power Query (or Get & Transform) in Excel or in Analysis Services (version 2017 upwards).  
+This repo contains custom functions in the language M, which can be used in Power BI, Power Query (or Get & Transform) in Excel or in Analysis Services (version 2017 upwards).
 
 This video describes how to use them:  https://www.youtube.com/watch?v=6TQN6KPG74Q
 
-There are currently 2 libraries:   
+There are currently 2 libraries:
 + Library: Main library who holds pure M-functions
-+ LibraryR: Holds M-functions that contain R-code. So you need to have R installed for them to run. But once installed and configured, you can use these functions just like the other M-functions. Further details check out here: [Using R in the Query Editor]( https://docs.microsoft.com/en-us/power-bi/desktop-r-in-query-editor)   
-
++ LibraryR: Holds M-functions that contain R-code. So you need to have R installed for them to run. But once installed and configured, you can use these functions just like the other M-functions. Further details check out here: [Using R in the Query Editor]( https://docs.microsoft.com/en-us/power-bi/desktop-r-in-query-editor)
 
 
 ## Table of contents:
- 
+
+## AccessingData
+"Function | Description
+-------- | -----------
+[AccessingData.DropboxFolder.pq](https://github.com/ImkeF/M/blob/master/Library/AccessingData.DropboxFolder.pq) | Returns a table with contents from your selected Dropbox folder. The optional field 'folder' allows you to access sub-folders within the main folder.
+[AccessingData.MCodeFromFile.pq](https://github.com/ImkeF/M/blob/master/Library/AccessingData.MCodeFromFile.pq) | Extract M-code from Excel- or Power BI files, see: http://www.thebiccountant.com/2017/10/15/bulk-extracting-power-query-m-code-from-multiple-pbix-files-in-power-bi/ ."
 ## Date
 "Function | Description
 -------- | -----------
@@ -19,25 +24,25 @@ There are currently 2 libraries:
 ## Function
 "Function | Description
 -------- | -----------
-[Function.Pipe.pq](https://github.com/ImkeF/M/blob/master/Library/Function.Pipe.pq) | Allows you to pipe your M functions"
+[Function.Pipe.pq](https://github.com/ImkeF/M/blob/master/Library/Function.Pipe.pq) | Allows to use piping-syntax: http://www.thebiccountant.com/2017/08/16/should-we-pipe-m/"
 ## Other
 "Function | Description
 -------- | -----------
-[GetCodeFromGithub.pq](https://github.com/ImkeF/M/blob/master/Library/GetCodeFromGithub.pq) | Reads code from GitHub pages
-[SQLFirstNRowsFromAllTables.pq](https://github.com/ImkeF/M/blob/master/Library/SQLFirstNRowsFromAllTables.pq) | fetches the first N rows in all tables (and views) from a database at once and presents them in a compact form"
-## Stat
-"Function | Description
--------- | -----------
-[Stat.Trend.pq](https://github.com/ImkeF/M/blob/master/Library/Stat.Trend.pq)" | Start of a function that replicates the Excel.Stat-function
+[GetCodeFromGithub.pq](https://github.com/ImkeF/M/blob/master/Library/GetCodeFromGithub.pq)
+[SQLFirstNRowsFromAllTables.pq](https://github.com/ImkeF/M/blob/master/Library/SQLFirstNRowsFromAllTables.pq) | fetches the first N rows in all tables (and views) from a database at once and presents them in a compact form
+[ImportPdfTextR.pq](https://github.com/ImkeF/M/blob/master/LibraryR/ImportPdfTextR.pq) | R script to import text from a pdf file. Returns a table with one row per page by default. Using 1 in the second optional parameter will return one row per line of text instead with matching indices."
 ## Table
 "Function | Description
 -------- | -----------
+[Table.BillOfMaterialsBasic.pq](https://github.com/ImkeF/M/blob/master/Library/Table.BillOfMaterialsBasic.pq) | Dynamically solve a Bill of materials-structure, generating as many hierarch-columns as necessary. See: http://www.thebiccountant.com/2017/05/08/dynamic-bill-of-material-bom-solution-in-excel-and-powerbi/#more-1782 .
+[Table.BlendDataTableau.pq](https://github.com/ImkeF/M/blob/master/Library/Table.BlendDataTableau.pq) | Blends table data like in Tableau. See: http://www.thebiccountant.com/2017/02/23/blending-data-in-powerbi-like-in-tableau/
 [Table.ColumnRunningTotal.pq](https://github.com/ImkeF/M/blob/master/Library/Table.ColumnRunningTotal.pq) | Fast way to add running total to a table
-[Table.ExportToCsvR.pq](https://github.com/ImkeF/M/blob/master/LibraryR/Table.ExportToCsv.pq) | Exports a table to a csv-file using R in Power BI.
-[Table.ParentChildAllParents.pq](https://github.com/ImkeF/M/blob/master/Library/Table.ParentChildAllParents.pq) | Solves Parent-Child-Hierarchy and shows all parents.
-[Table.ToMarkdown.pq](https://github.com/ImkeF/M/blob/master/Library/Table.ToMarkdown.pq) | Transforms a table to a text string in GitHubs markup language, so that it can easily be copied.
-[Table.UnpivotByNumbers.pq](https://github.com/ImkeF/M/blob/master/Library/Table.UnpivotByNumbers.pq) | Unpivots a table according to the number of columns and header rows passed on in the parameters"
+[Table.SolveParentChild.pq](https://github.com/ImkeF/M/blob/master/Library/Table.SolveParentChild.pq) | Creates columns for all parents, multiple parents are supported
+[Table.ToMarkdown.pq](https://github.com/ImkeF/M/blob/master/Library/Table.ToMarkdown.pq)
+[Table.UnpivotByNumbers.pq](https://github.com/ImkeF/M/blob/master/Library/Table.UnpivotByNumbers.pq) | Unpivots a table according to the number of columns and header rows passed on in the parameters
+[Table.ExportToCsv.pq](https://github.com/ImkeF/M/blob/master/LibraryR/Table.ExportToCsv.pq) | Exports a table to a csv file using R-script in PowerBI Desktop. You can pass the path in with backward-slashes, that will be reversed automatically."
 ## Text
 "Function | Description
 -------- | -----------
-[Text.RemoveHtmlTags.pq](https://github.com/ImkeF/M/blob/master/Library/Text.RemoveHtmlTags.pq) | Removes all Html tags from a text"
+[Text.RemoveHtmlTags.pq](https://github.com/ImkeF/M/blob/master/Library/Text.RemoveHtmlTags.pq) | Removes all Html tags from a text
+[Text.RemoveRepeatingCharacters.pq](https://github.com/ImkeF/M/blob/master/Library/Text.RemoveRepeatingCharacters.pq) | Removes repeating characters of the delimiter from a string"
