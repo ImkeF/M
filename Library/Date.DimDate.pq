@@ -87,7 +87,7 @@ let
     FiscalWeeklyPrefixSpace = if  FiscalWeeklyPrefix <> "" then FiscalWeeklyPrefix & " " else "",
     #"Added Custom1" = Table.AddColumn(FiscalPeriods, "Date", each List.Transform({Number.From([FW StartOfYear])..Number.From([FW EndOfYear])}, each Date.From(_))),
     CustomFiscalRawDays = Table.ExpandListColumn(#"Added Custom1", "Date"),
-    CSGB = Table.AddColumn(RawDays, "CalFields", each [DateKey = #"Calendar YearNumber"*10000, 
+    CSGB = Table.AddColumn(RawDays, "CalFields", each [DateKey = #"Calendar YearNumber"*10000+#"Calendar MonthNumber"*100+#"Day of Month", 
 #"Calendar YearNumber"=Date.Year([Date]),
 #"Calendar Year"=  CalendarGregorianPrefixSpace & Text.From(#"Calendar YearNumber"),
 #"Calendar QuarterNumber"= Number.RoundUp( #"Calendar MonthNumber"/ 3, 0 ),
