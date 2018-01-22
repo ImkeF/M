@@ -1,4 +1,3 @@
-
 # M
 This repo contains custom functions in the language M, which can be used in Power BI, Power Query (or Get & Transform) in Excel or in Analysis Services (version 2017 upwards).
 
@@ -37,6 +36,7 @@ There are currently 2 libraries:
 [Table.BillOfMaterialsBasic.pq](https://github.com/ImkeF/M/blob/master/Library/Table.BillOfMaterialsBasic.pq) | Dynamically solve a Bill of materials-structure, generating as many hierarch-columns as necessary. See: http://www.thebiccountant.com/2017/05/08/dynamic-bill-of-material-bom-solution-in-excel-and-powerbi/#more-1782 .
 [Table.BlendDataTableau.pq](https://github.com/ImkeF/M/blob/master/Library/Table.BlendDataTableau.pq) | Blends table data like in Tableau. See: http://www.thebiccountant.com/2017/02/23/blending-data-in-powerbi-like-in-tableau/
 [Table.ColumnRunningTotal.pq](https://github.com/ImkeF/M/blob/master/Library/Table.ColumnRunningTotal.pq) | Fast way to add running total to a table
+[Table.ReplaceMultiple.pq](https://github.com/ImkeF/M/blob/master/Library/Table.ReplaceMultiple.pq) | Replaces multiple values at a time in a table column without recursion: http://www.thebiccountant.com/2016/05/22/multiple-replacements-in-power-bi-and-power-query/ The <code>ReplacementsTable </code> must have the values to be replaced in the 1st column and the new value in the 2nd.
 [Table.SolveParentChild.pq](https://github.com/ImkeF/M/blob/master/Library/Table.SolveParentChild.pq) | Creates columns for all parents, multiple parents are supported
 [Table.ToMarkdown.pq](https://github.com/ImkeF/M/blob/master/Library/Table.ToMarkdown.pq)
 [Table.UnpivotByNumbers.pq](https://github.com/ImkeF/M/blob/master/Library/Table.UnpivotByNumbers.pq) | Unpivots a table according to the number of columns and header rows passed on in the parameters
