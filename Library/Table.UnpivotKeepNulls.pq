@@ -10,8 +10,8 @@ in
     Expand
 , documentation = [
 Documentation.Name =  " Table.UnpivotKeepNulls
-", Documentation.Description = " Unpivots columns (or optional other columns) while keeping empty fields (with null). Also enables to unpivot all columns!
-" , Documentation.LongDescription = " Unpivots columns (or optional other columns) while keeping empty fields (with null). Any entry to the 3rd parameter will set to "Unpivot Other Columns" instead. Also enables to unpivot all columns!
+", Documentation.Description = " Unpivots columns (or optional other columns) while keeping empty fields (with null). 
+" , Documentation.LongDescription = " Unpivots columns (or optional other columns) while keeping empty fields (with null). Any entry to the 3rd parameter will set to "Unpivot Other Columns" instead. 
 ", Documentation.Category = " Table Transformation
 ", Documentation.Source = " local
 ", Documentation.Author = " Imke Feldmann: www.TheBIccountant.com .
