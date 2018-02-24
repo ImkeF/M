@@ -1,4 +1,3 @@
-Text
 # M
 This repo contains custom functions in the language M, which can be used in Power BI, Power Query (or Get & Transform) in Excel or in Analysis Services (version 2017 upwards).
 
