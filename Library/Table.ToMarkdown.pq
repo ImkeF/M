@@ -8,4 +8,4 @@ let
     CombineList = List.Combine({{Text.Combine(Table.ColumnNames(Source), " | ")}, {HyphenLine}, TableValues[Custom]}),
     TransferToMarkdown = Text.Combine(CombineList, "#(lf)")
 in
-    TransferToMarkdown
+    TransferToMarkdow
