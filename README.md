@@ -1,3 +1,4 @@
+Text
 # M
 This repo contains custom functions in the language M, which can be used in Power BI, Power Query (or Get & Transform) in Excel or in Analysis Services (version 2017 upwards).
 
@@ -40,6 +41,7 @@ There are currently 2 libraries:
 [Table.SolveParentChild.pq](https://github.com/ImkeF/M/blob/master/Library/Table.SolveParentChild.pq) | Creates columns for all parents, multiple parents are supported
 [Table.ToMarkdown.pq](https://github.com/ImkeF/M/blob/master/Library/Table.ToMarkdown.pq)
 [Table.UnpivotByNumbers.pq](https://github.com/ImkeF/M/blob/master/Library/Table.UnpivotByNumbers.pq) | Unpivots a table according to the number of columns and header rows passed on in the parameters
+[Table.UnpivotKeepNulls.pq](https://github.com/ImkeF/M/blob/master/Library/Table.UnpivotKeepNulls.pq) | Unpivots columns (or optional other columns) while keeping empty fields (with null). Any entry to the 3rd parameter will set to ""Unpivot Other Columns"" instead.
 [Table.ExportToCsv.pq](https://github.com/ImkeF/M/blob/master/LibraryR/Table.ExportToCsv.pq) | Exports a table to a csv file using R-script in PowerBI Desktop. You can pass the path in with backward-slashes, that will be reversed automatically."
 ## Text
 "Function | Description
