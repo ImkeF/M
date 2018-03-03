@@ -17,8 +17,9 @@ AmountColumn = "SalesAmount",
 // Calculate a list with all running Totals
     RunningTotal = List.Skip(List.Generate( ()=> [ListItem=0, Counter=0]
                                             ,each [Counter] <= List.Count(ExtractAmountColumn)
-                                            ,each [ListItem = ExtractAmountColumn{[Counter]}+[ListItem]
-                                            ,Counter = [Counter]+1]
+                                            ,each [ ListItem = ExtractAmountColumn{[Counter]}+[ListItem],
+                                                    Counter = [Counter]+1
+                                                   ]
                                             ),1),
     ConvertedTable = Table.FromList(RunningTotal, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
     ExpandedColumn = Table.ExpandRecordColumn( ConvertedTable, "Column1", {"ListItem", "Counter"}, {"ListItem", "Counter"}),
