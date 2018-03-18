@@ -1,15 +1,15 @@
-let func =  
-(Table as table, SortColumn as text, AmountColumn as text) =>
+let
+func = (Table as table, SortColumn as text, AmountColumn as text) =>
 
 let
-/*
-Table = FactInternetSales, 
-SortColumn = "OrderDate", 
-AmountColumn = "SalesAmount",
+/* Debug parameters
+Table = #"Price Paid", 
+SortColumn = "Date", 
+AmountColumn = "Price paid",
 */
 
 // Sort table and buffer it
-    Sorted = Table.Buffer(Table.AddIndexColumn(Table.Sort(Table,{{SortColumn, Order.Descending}}), "Index",1,1)),
+    Sorted = Table.Buffer(Table.AddIndexColumn(Table.Sort(Table,{{SortColumn, Order.Ascending}}), "Index",1,1)),
 // Select the Columns
     SelectColumns = Table.SelectColumns(Sorted, {SortColumn, AmountColumn, "Index"}),
 // Extract Amount column and buffer it
@@ -24,9 +24,13 @@ AmountColumn = "SalesAmount",
     ConvertedTable = Table.FromList(RunningTotal, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
     ExpandedColumn = Table.ExpandRecordColumn( ConvertedTable, "Column1", {"ListItem", "Counter"}, {"ListItem", "Counter"}),
     MergedQueries = Table.NestedJoin(Sorted,{"Index"}, ExpandedColumn,{"Counter"},"Expanded Column1",JoinKind.LeftOuter),
-    Expand = Table.ExpandTableColumn( MergedQueries, "Expanded Column1", {"ListItem"}, {"RunningTotal"})
+    Expand = Table.ExpandTableColumn( MergedQueries, "Expanded Column1", {"ListItem"}, {"RunningTotal"}),
+    #"Removed Columns" = Table.RemoveColumns(Expand,{"Index"}),
+    #"Changed Type" = Table.TransformColumnTypes(#"Removed Columns",{{"RunningTotal", type number}})
 in
-    Expand, 
+    #"Changed Type"
+//*
+, 
     documentation = [ Documentation.Name =  " Table.ColumnRunningTotal"
         ,Documentation.Description = " Fast way to add running total to a table"
         ,Documentation.LongDescription = " Fast way to add running total to a table"
@@ -36,4 +40,4 @@ in
         ,Documentation.Examples = {[Description =  " ", Code = " ", Result = " "]}] 
  in 
   Value.ReplaceType(func, Value.ReplaceMetadata(Value.Type(func), documentation))
-
+//*/
