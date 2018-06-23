@@ -33,6 +33,7 @@ There are currently 2 libraries:
 ## Table
 "Function | Description
 -------- | -----------
+[Table.AddMergeOtherColumns.pq ](https://github.com/ImkeF/M/blob/master/Library/Table.AddMergeOtherColumns.pq) | Adds a column named <code>MergedColumnName</code> to a <code>Table</code> that merges all other columns than named <code>OtherColumnNames</code>. <code>Delimiter</code> as a text string. 
 [Table.BillOfMaterialsBasic.pq](https://github.com/ImkeF/M/blob/master/Library/Table.BillOfMaterialsBasic.pq) | Dynamically solve a Bill of materials-structure, generating as many hierarch-columns as necessary. See: http://www.thebiccountant.com/2017/05/08/dynamic-bill-of-material-bom-solution-in-excel-and-powerbi/#more-1782 .
 [Table.BlendDataTableau.pq](https://github.com/ImkeF/M/blob/master/Library/Table.BlendDataTableau.pq) | Blends table data like in Tableau. See: http://www.thebiccountant.com/2017/02/23/blending-data-in-powerbi-like-in-tableau/
 [Table.ColumnRunningTotal.pq](https://github.com/ImkeF/M/blob/master/Library/Table.ColumnRunningTotal.pq) | Fast way to add running total to a table
