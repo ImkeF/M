@@ -1,11 +1,11 @@
 let func =   
- (Table as table) =>
+(Table as table) =>
 let
-Source = Table,
-ListOfColumns = Table.ToColumns(Source),
-ConvertToTable = Table.FromList(ListOfColumns, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
-CoreString = Table.AddColumn(ConvertToTable, "Custom", each Text.Combine(List.Transform([Column1], each Text.From(_)),""" ,""")),
-FullString = "= Table.FromColumns({ {"""& Text.Combine(CoreString[Custom], """}, {""")&"""} }, {""" & Text.Combine(Table.ColumnNames(Table), """, """) & """} )"
+    ReplaceNulls = Table.ReplaceValue(Table,null,"",Replacer.ReplaceValue,Table.ColumnNames(Table)),
+	   ListOfColumns = Table.ToRows(ReplaceNulls ),
+	   ConvertToTable = Table.FromList(ListOfColumns, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
+	   CoreString = Table.AddColumn(ConvertToTable, "Custom", each Text.Combine(List.Transform([Column1], each Text.From(_)),""" ,""")),
+	   FullString = "= #table( {""" & Text.Combine(Table.ColumnNames(Table), """, """) & """}, { {"""& Text.Combine(CoreString[Custom], """}, {""")&"""} }  )"
 in
     FullString ,
 documentation = [
@@ -17,8 +17,8 @@ Documentation.Source = "  ",
 Documentation.Version = " 1.0 ",
 Documentation.Author = " Imke Feldmann: www.TheBIccountant.com . ",
 Documentation.Examples = {[Description =  "  ",
-Code = "  ",
-Result = "  "]}]
+Code = " = fnTableAddMergeOtherColumns(Table.FromColumns({ {""Have fun with Power Query"" ,""Sooth performance pains""}, {""Gasper""}, {""Kevin""}, {""Oz""}, {""Wyn"" ,""Wyn""} }, {""Value"", ""Gasper"", ""Kevin"", ""Oz"", ""Wyn""} ), {""Value""}, "", "", ""My new Column"") ",
+Result = " = Table.FromColumns({ {""Have fun with Power Query"" ,""Sooth performance pains""}, {""Gasper""}, {""Kevin""}, {""Oz""}, {""Wyn"" ,""Wyn""}, {""Gasper, Kevin, Oz, Wyn"" ,""Wyn""} }, {""Value"", ""Gasper"", ""Kevin"", ""Oz"", ""Wyn"", ""My new Column""} ) "]}]
   
  in  
   Value.ReplaceType(func, Value.ReplaceMetadata(Value.Type(func), documentation))  
