@@ -1,6 +1,6 @@
 let func =  
  
- (x, operations => List.Accumulate(operations, x, (state, current) => Function.Invoke(current{0}, {state}&List.Skip(current)))
+ (x, operations) => List.Accumulate(operations, x, (state, current) => Function.Invoke(current{0}, {state}&List.Skip(current)))
 
 , documentation = [
 Documentation.Name =  " Syntax.Pipe
