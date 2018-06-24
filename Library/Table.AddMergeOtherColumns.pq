@@ -9,7 +9,7 @@ in
 documentation = [
 Documentation.Name =  " Table.AddMergeOtherColumns.pq ",
 Documentation.Description = " Adds a column named <code>MergedColumnName</code> to a <code>Table</code> that merges all other columns than named <code>OtherColumnNames</code>. <code>Delimiter</code> as a text string.  ",
-Documentation.LongDescription = " Adds a column named <code>MergedColumnName</code> to a <code>Table</code> that merges all other columns than named <code>OtherColumnNames</code>. <code>Delimiter</code> as a text string. ""Hello"" ",
+Documentation.LongDescription = " Adds a column named <code>MergedColumnName</code> to a <code>Table</code> that merges all other columns than named <code>OtherColumnNames</code>. <code>Delimiter</code> as a text string. ",
 Documentation.Category = " Table ",
 Documentation.Source = "  ",
 Documentation.Version = " 1.0 ",
