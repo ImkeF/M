@@ -1,7 +1,7 @@
 let func =   
- () =>
+ (environment) =>
  let
-    Source = #shared,
+    Source = environment,
     #"Converted to Table" = Record.ToTable(Source),
     #"Filtered Rows" = Table.SelectRows(#"Converted to Table", each Text.EndsWith([Name], ".pq")),
     #"Sorted Rows" = Table.Sort(#"Filtered Rows",{{"Name", Order.Ascending}}),
@@ -14,7 +14,7 @@ in
 documentation = [
 Documentation.Name =  " Function.MyLibrary ",
 Documentation.Description = " Returns a table with all custom functions in the library (ending with .pq) ",
-Documentation.LongDescription = " Returns a table with all custom functions in the library (ending with .pq) ",
+Documentation.LongDescription = " Returns a table with all custom functions in the library (ending with .pq), pass # s hared as environment ",
 Documentation.Category = " Function ",
 Documentation.Source = "  ",
 Documentation.Version = " 1.0 ",
