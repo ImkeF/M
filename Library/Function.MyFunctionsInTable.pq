@@ -1,4 +1,5 @@
 let func =   
+ () =>
  let
     Source = #shared,
     #"Converted to Table" = Record.ToTable(Source),
