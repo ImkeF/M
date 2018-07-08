@@ -1,4 +1,3 @@
-Text
 # M
 This repo contains custom functions in the language M, which can be used in Power BI, Power Query (or Get & Transform) in Excel or in Analysis Services (version 2017 upwards).
 
@@ -21,6 +20,10 @@ There are currently 2 libraries:
 -------- | -----------
 [Date.DatesBetween.pq](https://github.com/ImkeF/M/tree/master/Library/Date.DatesBetween.pq) | Creates a list of dates according to the chosen interval between Start and End. The dates created will always be at the end of the interval, so could be in the future if today is chosen.
 [Date.DimDate.pq](https://github.com/ImkeF/M/tree/master/Library/Date.DimDate.pq) | Standard DimDate gregorian calendar accd. To Marco Russo DAX calendar"
+## DateTime
+"Function | Description
+-------- | -----------
+[DateTime.HoursBetween.pq](https://github.com/ImkeF/M/tree/master/Library/DateTime.HoursBetween.pq) | Returns a list of hours (datetime) that lie between the <code>Start</code> and <code>End</code>"
 ## Function
 "Function | Description
 -------- | -----------
@@ -35,13 +38,15 @@ There are currently 2 libraries:
 ## List
 "Function | Description
 -------- | -----------
-[List.Percentile.pq](https://github.com/ImkeF/M/tree/master/Library/List.Percentile.pq) | Returns the k-th <code>percentile</code> of values in a <code>list</code>.  Use ""1"" in 3rd parameter to set from Inc (default) to Exc ."
+[List.Percentile.pq](https://github.com/ImkeF/M/tree/master/Library/List.Percentile.pq) | Returns the k-th <code>percentile</code> of values in a <code>list</code>.  Use ""1"" in 3rd parameter to set from Inc (default) to Exc .
+[List.ToMCode.pq](https://github.com/ImkeF/M/tree/master/Library/List.ToMCode.pq) | Transforms a  <code>List</code>  to a string of M code that will create that list in the query editor."
 ## Table
 "Function | Description
 -------- | -----------
 [Table.AddMergeOtherColumns.pq](https://github.com/ImkeF/M/tree/master/Library/Table.AddMergeOtherColumns.pq) | Adds a column named <code>MergedColumnName</code> to a <code>Table</code> that merges all other columns than named <code>OtherColumnNames</code>. <code>Delimiter</code> as a text string.
 [Table.BillOfMaterialsBasic.pq](https://github.com/ImkeF/M/tree/master/Library/Table.BillOfMaterialsBasic.pq) | Dynamically solve a Bill of materials-structure, generating as many hierarch-columns as necessary. See: http://www.thebiccountant.com/2017/05/08/dynamic-bill-of-material-bom-solution-in-excel-and-powerbi/#more-1782 .
 [Table.BlendDataTableau.pq](https://github.com/ImkeF/M/tree/master/Library/Table.BlendDataTableau.pq) | Blends table data like in Tableau. See: http://www.thebiccountant.com/2017/02/23/blending-data-in-powerbi-like-in-tableau/
+[Table.ClusteredIndex.pq](https://github.com/ImkeF/M/tree/master/Library/Table.ClusteredIndex.pq) | Returns a <code>Table</code> with a new column with a specific <code>name</code> that, for each row, contains an index of the row in the table.
 [Table.ColumnRunningTotal.pq](https://github.com/ImkeF/M/tree/master/Library/Table.ColumnRunningTotal.pq) | Fast way to add running total to a table
 [Table.ReplaceMultiple.pq](https://github.com/ImkeF/M/tree/master/Library/Table.ReplaceMultiple.pq) | Replaces multiple values at a time in a table column without recursion: http://www.thebiccountant.com/2016/05/22/multiple-replacements-in-power-bi-and-power-query/ The <code>ReplacementsTable </code> must have the values to be replaced in the 1st column and the new value in the 2nd.
 [Table.SolveParentChild.pq](https://github.com/ImkeF/M/tree/master/Library/Table.SolveParentChild.pq) | Creates columns for all parents, multiple parents are supported
