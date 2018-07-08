@@ -1,3 +1,4 @@
+Text
 # M
 This repo contains custom functions in the language M, which can be used in Power BI, Power Query (or Get & Transform) in Excel or in Analysis Services (version 2017 upwards).
 
@@ -23,6 +24,7 @@ There are currently 2 libraries:
 ## Function
 "Function | Description
 -------- | -----------
+[Function.MyFunctionsInTable.pq](https://github.com/ImkeF/M/tree/master/Library/Function.MyFunctionsInTable.pq) | Returns a table with all custom functions in the library (ending with .pq), pass # s hared as environment
 [Function.Pipe.pq](https://github.com/ImkeF/M/tree/master/Library/Function.Pipe.pq) | Allows to use piping-syntax: http://www.thebiccountant.com/2017/08/16/should-we-pipe-m/"
 ## Other
 "Function | Description
@@ -30,10 +32,14 @@ There are currently 2 libraries:
 [GetCodeFromGithub.pq](https://github.com/ImkeF/M/tree/master/Library/GetCodeFromGithub.pq) | 
 [SQLFirstNRowsFromAllTables.pq](https://github.com/ImkeF/M/tree/master/Library/SQLFirstNRowsFromAllTables.pq) | fetches the first N rows in all tables (and views) from a database at once and presents them in a compact form
 [ImportPdfTextR.pq](https://github.com/ImkeF/M/tree/master/LibraryR/ImportPdfTextR.pq) | R script to import text from a pdf file. Returns a table with one row per page by default. Using 1 in the second optional parameter will return one row per line of text instead with matching indices."
+## List
+"Function | Description
+-------- | -----------
+[List.Percentile.pq](https://github.com/ImkeF/M/tree/master/Library/List.Percentile.pq) | Returns the k-th <code>percentile</code> of values in a <code>list</code>.  Use ""1"" in 3rd parameter to set from Inc (default) to Exc ."
 ## Table
 "Function | Description
 -------- | -----------
-[Table.AddMergeOtherColumns.pq](https://github.com/ImkeF/M/tree/master/Library/Table.AddMergeOtherColumns.pq) | Adds a column named <code>MergedColumnName</code> to a <code>Table</code> that merges all other columns than named <code>OtherColumnNames</code>. <code>Delimiter</code> as a text string. ""Hello""
+[Table.AddMergeOtherColumns.pq](https://github.com/ImkeF/M/tree/master/Library/Table.AddMergeOtherColumns.pq) | Adds a column named <code>MergedColumnName</code> to a <code>Table</code> that merges all other columns than named <code>OtherColumnNames</code>. <code>Delimiter</code> as a text string.
 [Table.BillOfMaterialsBasic.pq](https://github.com/ImkeF/M/tree/master/Library/Table.BillOfMaterialsBasic.pq) | Dynamically solve a Bill of materials-structure, generating as many hierarch-columns as necessary. See: http://www.thebiccountant.com/2017/05/08/dynamic-bill-of-material-bom-solution-in-excel-and-powerbi/#more-1782 .
 [Table.BlendDataTableau.pq](https://github.com/ImkeF/M/tree/master/Library/Table.BlendDataTableau.pq) | Blends table data like in Tableau. See: http://www.thebiccountant.com/2017/02/23/blending-data-in-powerbi-like-in-tableau/
 [Table.ColumnRunningTotal.pq](https://github.com/ImkeF/M/tree/master/Library/Table.ColumnRunningTotal.pq) | Fast way to add running total to a table
