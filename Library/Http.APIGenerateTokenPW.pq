@@ -39,7 +39,7 @@ Documentation.LongDescription = " Generates a Token for an API with username and
 Documentation.Category = " Other ",
 Documentation.Source = " . https://prathy.com/2017/09/calling-power-bi-api-using-power-bi-desktop-to-document-power-bi-service/ . ",
 Documentation.Version = " 1.0 ",
-Documentation.Author = " Prathy Kamasani ",
+Documentation.Author = " Imke Feldmann converted query from Prathy Kamasani to function",
 Documentation.Examples = {[Description =  "  ",
 Code = "  ",
 Result = "  "]}]
