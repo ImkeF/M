@@ -5,11 +5,12 @@ let func =
 
 let
 
+    TransformToText = Table.TransformColumnTypes(dataset, List.Transform(Table.ColumnNames(dataset), each {_, type text})),
     ConvertedPath = Text.Replace(path, "\", "/"),
 
     RScript = R.Execute("write.csv(dataset,"""&ConvertedPath&""") 
 
-                         output <- dataset
+                         output <- TransformToText
 
                          ",[dataset=dataset]),
 
