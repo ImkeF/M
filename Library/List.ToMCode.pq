@@ -3,7 +3,7 @@ let func =
 let
     Source = List,
     CoreString = Text.Combine(List.Transform(Source, each Text.From(_)), """, """),
-    FullString = "= {"""& CoreString &"""}"
+    FullString = "= {"""& CoreString &"""}" & "= {"""& CoreString &"""}"
 in
     FullString ,
 documentation = [
