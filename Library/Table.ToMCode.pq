@@ -5,7 +5,7 @@ let
     ListOfColumns = Table.ToColumns(ReplaceNulls ),
     ConvertToTable = Table.FromList(ListOfColumns, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
     CoreString = Table.AddColumn(ConvertToTable, "Custom", each Text.Combine(List.Transform([Column1], each Text.From(_)),""" ,""")),
-    FullString = "= #table( {""" & Text.Combine(Table.ColumnNames(Table), """, """) & """}, List.Zip( { {"""& Text.Combine(CoreString[Custom], """}, {""")&"""} } ) )",
+    FullString = "= #table( {""" & Text.Combine(Table.ColumnNames(Table), """, """) & """}, #(lf) List.Zip( { {"""& Text.Combine(CoreString[Custom], """}, #(lf) {""")&"""} } ) )",
     ReplaceBlanks = Text.Replace(FullString, """""", "null")
 in
     ReplaceBlanks,
