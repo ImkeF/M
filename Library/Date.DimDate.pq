@@ -1,19 +1,18 @@
-let func =  
- (Start as date, End as date, optional Culture as text) =>
-
+(start as date, end as date, optional culture as text) =>
 let
 /*
-    culture = if Culture = null then "en-US" else,
-    Start = #date(2016, 1, 1),
-    End = #date(2018,12,31),
+    culture = "de-de",
+    start = #date(2016, 1, 1),
+    end = #date(2018,12,31),
 */
 
-    culture = if Culture = null then "en-US" else Culture,
-    Start = Start,
-    End = End,
+    Culture = if culture = null then "en-US" else culture,
+    Start = start,
+    End = end,
+    WeekDayLength = try Record.Field([#"de-de"=2], Culture) otherwise 3,
     TodayReference = Date.From(DateTime.LocalNow()),
     FirstYear = Date.Year(Start),
-    LastYear = Date.Year(DateTime.LocalNow()),
+    LastYear = Date.Year(End),
     // For Fiscal 52-53 weeks (start depends on rules)
     FiscalCalendarFirstMonth = 7,
     // Use: 0 - Sunday, 1 - Monday, 2 - Tuesday, ... 5 - Friday, 6 - Saturday
@@ -87,78 +86,69 @@ let
     FiscalWeeklyPrefixSpace = if  FiscalWeeklyPrefix <> "" then FiscalWeeklyPrefix & " " else "",
     #"Added Custom1" = Table.AddColumn(FiscalPeriods, "Date", each List.Transform({Number.From([FW StartOfYear])..Number.From([FW EndOfYear])}, each Date.From(_))),
     CustomFiscalRawDays = Table.ExpandListColumn(#"Added Custom1", "Date"),
-    CSGB = Table.AddColumn(RawDays, "CalFields", each [DateKey = #"Calendar YearNumber"*10000+#"Calendar MonthNumber"*100+#"Day of Month", 
-#"Calendar YearNumber"=Date.Year([Date]),
-#"Calendar Year"=  CalendarGregorianPrefixSpace & Text.From(#"Calendar YearNumber"),
-#"Calendar QuarterNumber"= Number.RoundUp( #"Calendar MonthNumber"/ 3, 0 ),
-#"Calendar Quarter" = CalendarGregorianPrefix & "Q"
-                    & Text.From(#"Calendar QuarterNumber")
-                    & " ",
-  #"Calendar YearQuarterNumber"= #"Calendar YearNumber"* 4
+    CSGB = Table.Buffer( Table.AddColumn(RawDays, "CalFields", each 
+                [DateKey = #"Calendar YearNumber"*10000+#"Calendar MonthNumber"*100+#"Day of Month", 
+                #"Calendar YearNumber"=Date.Year([Date]),
+                #"Calendar Year"=  CalendarGregorianPrefixSpace & Text.From(#"Calendar YearNumber"),
+                #"Calendar QuarterNumber"= Number.RoundUp( #"Calendar MonthNumber"/ 3, 0 ),
+                #"Calendar Quarter" = CalendarGregorianPrefix & "Q"
+                                    & Text.From(#"Calendar QuarterNumber")
+                                    & "",
+                #"Calendar YearQuarterNumber"= #"Calendar YearNumber"* 4 - 1
 
-                    + #"Calendar QuarterNumber",
- #"Calendar Quarter Year"= CalendarGregorianPrefix   
-& #"Calendar Quarter"
-                    & " "
-                    & Text.From(#"Calendar Year"),
+                                    + #"Calendar QuarterNumber",
+                #"Calendar Quarter Year"= CalendarGregorianPrefix   
+                & #"Calendar Quarter"
+                                    & ""
+                                    & Text.From(#"Calendar Year"),
 
-#"Calendar MonthNumber" = Date.Month([Date]),
-  #"Calendar Month"= Text.Start(Date.MonthName([Date], culture),3),
- #"Calendar YearMonthNumber" = #"Calendar YearNumber" * 12
+                #"Calendar MonthNumber" = Date.Month([Date]),
+                #"Calendar Month"= Text.Start(Date.MonthName([Date], Culture),3),
+                #"Calendar YearMonthNumber" = #"Calendar YearNumber" * 12 - 1
 
-                    + #"Calendar MonthNumber",
-   #"Calendar Month Year"= #"Calendar Month"& " "& #"Calendar Year",
-#"Calendar WeekNumber" = Date.WeekOfYear([Date], WeekDayCalculationType ),
-   #"Calendar Week"= CalendarGregorianPrefix & "W"
-                    & Text.PadStart( Text.From(#"Calendar WeekNumber"), 2 ,"0"),
-#"Calendar YearWeekNumber" =  Number.IntegerDivide((  Number.From([Date])- Number.From(FirstWeekReference)), 7 ) ,
-   #"Calendar Week Year"= CalendarGregorianPrefix 
-                    & #"Calendar Week"
-                    & "-"
-                    & #"Calendar Year",
- #"Calendar WeekYearOrder"= #"Calendar YearNumber" * 100
-                    + #"Calendar WeekNumber",
- #"Calendar DayOfYearNumber"= Date.DayOfYear([Date]),
-#"Day of Month"= Date.Day([Date]),
-WeekDayNumber = Date.DayOfWeek([Date])+1,
- #"Week Day"= Text.Start(Date.DayOfWeekName([Date], culture),3)
-]),
-    CalendarStandardGregorianBase = Table.ExpandRecordColumn(CSGB, "CalFields", Record.FieldNames(CSGB[CalFields]{0})),
-CSG = Table.AddColumn(CalendarStandardGregorianBase, "CalGregorian", each [
-#"Calendar RelativeWeekPos"=  List.Average(
-                Table.SelectRows( CalendarStandardGregorianBase, each [Date] = TodayReference )
-                [Calendar YearWeekNumber])-[Calendar YearWeekNumber],
-#"Calendar RelativeMonthPos"= List.Average(
-                Table.SelectRows( CalendarStandardGregorianBase, each [Date] = TodayReference )
-                [Calendar YearMonthNumber])-[Calendar YearMonthNumber],
-#"Calendar RelativeQuarterPos"= List.Average(
-                Table.SelectRows( CalendarStandardGregorianBase, each [Date] = TodayReference )
-                [Calendar YearQuarterNumber])-[Calendar YearQuarterNumber],
-#"Calendar RelativeYearPos"= List.Average(
-                Table.SelectRows( CalendarStandardGregorianBase, each [Date] = TodayReference )
-                [Calendar YearNumber])-[Calendar YearNumber],     
-#"Calendar StartOfMonth"= Date.StartOfMonth([Date]),
-#"Calendar EndOfMonth"= Date.EndOfMonth([Date]),
-#"Calendar DayOfMonth"= Date.Day([Date]),
-#"Calendar StartOfQuarter"= Date.StartOfMonth(List.Min(Table.SelectRows(CalendarStandardGregorianBase, each [Calendar YearQuarterNumber] = [Calendar YearQuarterNumber])[Date])),
-#"Calendar EndOfQuarter"= Date.StartOfMonth(List.Max(Table.SelectRows(CalendarStandardGregorianBase, each [Calendar YearQuarterNumber] = [Calendar YearQuarterNumber])[Date])),
+                                    + #"Calendar MonthNumber",
+                #"Calendar Month Year"= #"Calendar Month"& " "& #"Calendar Year",
+                #"Calendar WeekNumber" = Date.WeekOfYear([Date], WeekDayCalculationType ),
+                #"Calendar Week"= CalendarGregorianPrefix & "W"
+                                    & Text.PadStart( Text.From(#"Calendar WeekNumber"), 2 ,"0"),
+                #"Calendar YearWeekNumber" =  Number.IntegerDivide((  Number.From([Date])- Number.From(FirstWeekReference)), 7 ) ,
+                #"Calendar Week Year"= CalendarGregorianPrefix 
+                                    & #"Calendar Week"
+                                    & "-"
+                                    & #"Calendar Year",
+                #"Calendar WeekYearOrder"= #"Calendar YearNumber" * 100
+                                    + #"Calendar WeekNumber",
+                #"Calendar DayOfYearNumber"= Date.DayOfYear([Date]),
+                #"Day of Month"= Date.Day([Date]),
+                WeekDayNumber = Date.DayOfWeek([Date])+1,
+                #"Week Day"= Text.Start(Date.DayOfWeekName([Date], Culture), WeekDayLength )
+                ]) ),
+    CalendarStandardGregorianBase = Table.Buffer( Table.ExpandRecordColumn(CSGB, "CalFields", Record.FieldNames(CSGB[CalFields]{0})) ),
 
-#"Calendar DayOfQuarter"= Number.From([Date])-Number.From(#"Calendar StartOfQuarter")+1   
-]),
-    CalendarStandardGregorian = Table.ExpandRecordColumn(CSG, "CalGregorian", Record.FieldNames(CSG[CalGregorian]{0}))
+    iCalTodayReference = Table.Buffer(Table.SelectRows( CalendarStandardGregorianBase, each [Date] = TodayReference)),
+
+CSG = Table.Buffer( Table.AddColumn(CalendarStandardGregorianBase, "CalGregorian", each [
+                #"Calendar RelativeWeekPos"=  List.Average(
+                                iCalTodayReference
+                                [Calendar YearWeekNumber])-[Calendar YearWeekNumber],
+                #"Calendar RelativeMonthPos"= List.Average(
+                                iCalTodayReference
+                                [Calendar YearMonthNumber])-[Calendar YearMonthNumber],
+                #"Calendar RelativeQuarterPos"= List.Average(
+                                iCalTodayReference
+                                [Calendar YearQuarterNumber])-[Calendar YearQuarterNumber],
+                #"Calendar RelativeYearPos"= List.Average(
+                                iCalTodayReference
+                                [Calendar YearNumber])-[Calendar YearNumber],     
+                #"Calendar StartOfMonth"= Date.StartOfMonth([Date]),
+                #"Calendar EndOfMonth"= Date.EndOfMonth([Date]),
+                #"Calendar DayOfMonth"= Date.Day([Date]),
+                #"Calendar StartOfQuarter"= #date([Calendar YearNumber], Record.Field([Q1=1, Q2=4, Q3=7, Q4=10], [Calendar Quarter]), 1) ,
+                #"Calendar EndOfQuarter"= #date([Calendar YearNumber], Record.Field([Q1=3, Q2=6, Q3=9, Q4=12], [Calendar Quarter]), Record.Field([Q1=31, Q2=30, Q3=30, Q4=31], [Calendar Quarter])),
+
+                #"Calendar DayOfQuarter"= Number.From([Date])-Number.From(#"Calendar StartOfQuarter")+1   
+                ]) ),
+    #"Expanded CalGregorian" = Table.ExpandRecordColumn(CSG, "CalGregorian", {"Calendar RelativeWeekPos", "Calendar RelativeMonthPos", "Calendar RelativeQuarterPos", "Calendar RelativeYearPos", "Calendar StartOfMonth", "Calendar EndOfMonth", "Calendar DayOfMonth", "Calendar StartOfQuarter", "Calendar EndOfQuarter", "Calendar DayOfQuarter"}, {"Calendar RelativeWeekPos", "Calendar RelativeMonthPos", "Calendar RelativeQuarterPos", "Calendar RelativeYearPos", "Calendar StartOfMonth", "Calendar EndOfMonth", "Calendar DayOfMonth", "Calendar StartOfQuarter", "Calendar EndOfQuarter", "Calendar DayOfQuarter"}),
+    #"Changed Type" = Table.TransformColumnTypes(#"Expanded CalGregorian",{{"Date", type date}, {"DateKey", Int64.Type}, {"Calendar YearNumber", Int64.Type}, {"Calendar QuarterNumber", Int64.Type}, {"Calendar Quarter", type text}, {"Calendar YearQuarterNumber", Int64.Type}, {"Calendar Quarter Year", type text}, {"Calendar MonthNumber", Int64.Type}, {"Calendar Month", type text}, {"Calendar YearMonthNumber", Int64.Type}, {"Calendar Month Year", type text}, {"Calendar WeekNumber", Int64.Type}, {"Calendar Week", type text}, {"Calendar YearWeekNumber", Int64.Type}, {"Calendar Week Year", type text}, {"Calendar WeekYearOrder", Int64.Type}, {"Calendar DayOfYearNumber", Int64.Type}, {"Day of Month", Int64.Type}, {"WeekDayNumber", Int64.Type}, {"Week Day", type text}, {"Calendar RelativeWeekPos", Int64.Type}, {"Calendar RelativeMonthPos", Int64.Type}, {"Calendar RelativeQuarterPos", Int64.Type}, {"Calendar RelativeYearPos", Int64.Type}, {"Calendar StartOfMonth", type date}, {"Calendar EndOfMonth", type date}, {"Calendar DayOfMonth", Int64.Type}, {"Calendar StartOfQuarter", type date}, {"Calendar EndOfQuarter", type date}, {"Calendar DayOfQuarter", Int64.Type}, {"Calendar Year", type text}})
 in
-    CalendarStandardGregorian
-, documentation = [
-Documentation.Name =  " Date.DimDate
-", Documentation.Description = " Standard DimDate gregorian calendar accd. To Marco Russo DAX calendar
-" , Documentation.LongDescription = " Standard DimDate gregorian calendar accd. To Marco Russo DAX calendar
-", Documentation.Category = " Table
-", Documentation.Source = " Calendar logic taken from Marco Russo DAX-calendar: https://github.com/marcosqlbi/DaxDateTemplate . 
-", Documentation.Author = " Imke Feldmann: www.TheBIccountant.com
-", Documentation.Examples = {[Description =  " 
-" , Code = " 
- ", Result = " 
-"]}] 
- in 
-  Value.ReplaceType(func, Value.ReplaceMetadata(Value.Type(func), documentation)) 
-
+    #"Changed Type"
