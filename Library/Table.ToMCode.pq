@@ -1,14 +1,35 @@
 let func =   
  (Table as table) =>
 let
-    ReplaceNulls = Table.ReplaceValue(Table,null,"",Replacer.ReplaceValue,Table.ColumnNames(Table)),
-    ListOfColumns = Table.ToColumns(ReplaceNulls ),
-    ConvertToTable = Table.FromList(ListOfColumns, Splitter.SplitByNothing(), null, null, ExtraValues.Error),
-    CoreString = Table.AddColumn(ConvertToTable, "Custom", each Text.Combine(List.Transform([Column1], each Text.From(_)),""" ,""")),
-    FullString = "= #table( {""" & Text.Combine(Table.ColumnNames(Table), """, """) & """}, #(lf) List.Zip( { {"""& Text.Combine(CoreString[Custom], """}, #(lf) {""")&"""} } ) )",
-    ReplaceBlanks = Text.Replace(FullString, """""", "null")
+  Table = Query1,
+  ReplaceNulls = Table.ReplaceValue(
+      Table, 
+      null, 
+      "", 
+      Replacer.ReplaceValue, 
+      Table.ColumnNames(Table)
+    ),
+  ListOfColumns = Table.ToRows(ReplaceNulls),
+  ConvertToTable = Table.FromList(
+      ListOfColumns, 
+      Splitter.SplitByNothing(), 
+      null, 
+      null, 
+      ExtraValues.Error
+    ),
+  CoreString = Table.AddColumn(
+      ConvertToTable, 
+      "Custom", 
+      each Text.Combine(List.Transform([Column1], each Text.From(_)), """ ,""")
+    ),
+  FullString = "= #table( {"""
+    & Text.Combine(Table.ColumnNames(Table), """, """)
+    & """}, #(lf) { {"""
+    & Text.Combine(CoreString[Custom], """}, #(lf) {""")
+    & """} } ) ",
+  ReplaceBlanks = Text.Replace(FullString, """""", "null")
 in
-    ReplaceBlanks,
+  ReplaceBlanks,
 documentation = [
 Documentation.Name =  " Table.ToMCode ",
 Documentation.Description = " Transforms a  <code>Table</code>  to a string of M code that will create that table in the query editor. ",
