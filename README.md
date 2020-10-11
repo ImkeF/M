@@ -136,7 +136,7 @@ Function | Description
 [Text.RemoveRepeatingCharacters.pq](https://github.com/ImkeF/M/tree/master/Library/Text.RemoveRepeatingCharacters.pq) | Removes repeating characters of the delimiter from a string
 [Text.QueryNames.pq](https://gist.githubusercontent.com/ImkeF/0b26e771dbcfba362a97d7bf09d4cb33/raw/57e562b5f1e7fbd19442847c78079211c53da4e8/Text.QueryNames.pq) | Creates a string with all query names from the current file. Can only be used in the query editor, as shared will not work when loaded to the data model
 [Text.FunctionRecordExpressionEvaluate.pq](https://gist.githubusercontent.com/ImkeF/287b48232079e5f69bc1e72019bd6b71/raw/b53e899940291d0a6d629aa092fd6e51a71d389c/Text.FunctionRecordExpressionEvaluate.pq) | Creates a string for a record or function (if 2nd parameter is used) for the function record in Expression.Evaluate, replacing #shared.
-[Text.RemoveBetweenDelimiters.pq](https://gist.githubusercontent.com/ImkeF/b025cac646c90de394d9d96b6061b12b/raw/6b1ef517d1843fd97fe22f97f691032c1ca95cb0/Text.RemoveBetweenDelimiters.pq) | Removes text between 2 delimiters.
+[Text.RemoveBetweenDelimiters.pq](https://gist.githubusercontent.com/ImkeF/b025cac646c90de394d9d96b6061b12b/raw/9c91073297e905132868c5278193da26501fd3b4/Text.RemoveBetweenDelimiters.pq) | Removes text between 2 delimiters.
 ## Type
 Function | Description
 -------- | -----------
