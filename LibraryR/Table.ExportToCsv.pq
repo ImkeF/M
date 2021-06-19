@@ -10,7 +10,7 @@ let
 
     RScript = R.Execute("write.csv(dataset,"""&ConvertedPath&""") 
 
-                         output <- TransformToText
+                         output <- dataset
 
                          ",[dataset=dataset]),
 
