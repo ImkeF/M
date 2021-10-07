@@ -1,7 +1,7 @@
 let func =   
  (Table as table) =>
 let
-  Table = Query1,
+  Table = Table,
   ReplaceNulls = Table.ReplaceValue(
       Table, 
       null, 
