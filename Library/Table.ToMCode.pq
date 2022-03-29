@@ -2,14 +2,7 @@ let func =
  (Table as table) =>
 let
   Table = Table,
-  ReplaceNulls = Table.ReplaceValue(
-      Table, 
-      null, 
-      "", 
-      Replacer.ReplaceValue, 
-      Table.ColumnNames(Table)
-    ),
-  ListOfColumns = Table.ToRows(ReplaceNulls),
+  ListOfColumns = Table.ToRows(Table),
   ConvertToTable = Table.FromList(
       ListOfColumns, 
       Splitter.SplitByNothing(), 
@@ -20,23 +13,22 @@ let
   CoreString = Table.AddColumn(
       ConvertToTable, 
       "Custom", 
-      each Text.Combine(List.Transform([Column1], each Text.From(_)), """ ,""")
+      each Text.Combine(List.Transform([Column1], each if _ = null then "null" else """" & Text.Replace(Text.From(_),"""","""""") & """"), ", ")
     ),
   FullString = "= #table( {"""
     & Text.Combine(Table.ColumnNames(Table), """, """)
-    & """}, #(lf) { {"""
-    & Text.Combine(CoreString[Custom], """}, #(lf) {""")
-    & """} } ) ",
-  ReplaceBlanks = Text.Replace(FullString, """""", "null")
+    & """}, #(lf) { {"
+    & Text.Combine(CoreString[Custom], "}, #(lf) {")
+    & "} } ) "
 in
-  ReplaceBlanks,
+  FullString,
 documentation = [
 Documentation.Name =  " Table.ToMCode ",
 Documentation.Description = " Transforms a  <code>Table</code>  to a string of M code that will create that table in the query editor. ",
 Documentation.LongDescription = " Transforms a  <code>Table</code>  to a string of M code that will create that table in the query editor. ",
 Documentation.Category = " Table ",
 Documentation.Source = "  ",
-Documentation.Version = " 1.0 ",
+Documentation.Version = " 1.0.1 ",
 Documentation.Author = " Imke Feldmann: www.TheBIccountant.com . ",
 Documentation.Examples = {[Description =  "  ",
 Code = "  ",
